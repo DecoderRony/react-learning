@@ -13,7 +13,7 @@ import {
 import { Platforms } from "../hooks/useGames";
 
 interface Props {
-  platforms: (Platforms & { id: number })[];
+  platforms: Platforms[];
 }
 
 const PlatformIconList = ({ platforms }: Props) => {
