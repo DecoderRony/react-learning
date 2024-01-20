@@ -1,4 +1,5 @@
 import {
+  Button,
   HStack,
   Image,
   List,
@@ -7,26 +8,32 @@ import {
   SkeletonText,
   Text,
 } from "@chakra-ui/react";
-import useGenres from "../hooks/useGenres";
+import useGenres, { GenreDetails } from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/image-url";
 
-const GenreList = () => {
-  const { genres, error, isLoading } = useGenres();
-  const skeletonCount = [1, 2, 3, 4, 5, 6];
+interface Props {
+  onGenreSelect: (genre: GenreDetails) => void;
+  selectedGenre: GenreDetails | undefined;
+}
+
+const GenreList = ({ onGenreSelect, selectedGenre }: Props) => {
+  const { genres, error, isLoaded } = useGenres();
   {
     if (error) return null;
 
-    if (isLoading) {
+    if (!isLoaded) {
       return (
         <List>
-          {skeletonCount.map((count) => (
-            <ListItem key={count}>
-              <HStack>
-                <Skeleton borderRadius={"0.5em"} boxSize={"32px"}></Skeleton>
-                <SkeletonText></SkeletonText>
-              </HStack>
-            </ListItem>
-          ))}
+          {Array(15)
+            .fill(undefined)
+            .map((_, count) => (
+              <ListItem key={count} paddingY="0.3em">
+                <HStack>
+                  <Skeleton borderRadius={"0.5em"} boxSize={"32px"}></Skeleton>
+                  <SkeletonText width={"100px"} noOfLines={1}></SkeletonText>
+                </HStack>
+              </ListItem>
+            ))}
         </List>
       );
     }
@@ -42,7 +49,14 @@ const GenreList = () => {
               borderRadius={"0.5em"}
               boxSize={"32px"}
             ></Image>
-            <Text fontSize="md">{genre.name}</Text>
+            <Button
+              variant="link"
+              fontSize="sm"
+              onClick={() => onGenreSelect(genre)}
+              fontWeight={selectedGenre?.id === genre.id ? "bold" : "normal"}
+            >
+              {genre.name}
+            </Button>
           </HStack>
         </ListItem>
       ))}
