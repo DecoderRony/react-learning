@@ -1,18 +1,38 @@
 import { SimpleGrid, Text } from "@chakra-ui/react";
-import useGames, { Platforms } from "../hooks/useGames";
+import useGames from "../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
-import { GenreDetails } from "../hooks/useGenres";
+import { GameQuery } from "../App";
 
 interface Props {
-  selectedGenre: GenreDetails | undefined;
-  selectedPlatform: Platforms | undefined;
+  gameQuery: GameQuery;
 }
 
-const GameList = ({ selectedGenre, selectedPlatform }: Props) => {
-  const { games, error, isLoaded } = useGames(selectedGenre, selectedPlatform);
+const GameList = ({ gameQuery }: Props) => {
+  const { games, error, isLoaded } = useGames(gameQuery);
   const GameCardSkeletonCount = [1, 2, 3, 4, 5, 6];
-
+  if (!isLoaded) {
+    return (
+      <>
+        {error && <Text>{error}</Text>}
+        <SimpleGrid
+          columns={{
+            sm: 1,
+            md: 2,
+            lg: 3,
+            xl: 4,
+          }}
+          paddingY={"0.8em"}
+          spacing={"1em"}
+        >
+          {!isLoaded &&
+            GameCardSkeletonCount.map((skeleton) => (
+              <GameCardSkeleton key={skeleton}></GameCardSkeleton>
+            ))}
+        </SimpleGrid>
+      </>
+    );
+  }
   return (
     <>
       {error && <Text>{error}</Text>}
@@ -26,11 +46,6 @@ const GameList = ({ selectedGenre, selectedPlatform }: Props) => {
         paddingY={"0.8em"}
         spacing={"1em"}
       >
-        {!isLoaded &&
-          GameCardSkeletonCount.map((skeleton) => (
-            <GameCardSkeleton key={skeleton}></GameCardSkeleton>
-          ))}
-
         {games.map((game) => (
           <GameCard key={game.id} game={game} />
         ))}

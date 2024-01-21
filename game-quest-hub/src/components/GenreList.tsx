@@ -18,25 +18,24 @@ interface Props {
 
 const GenreList = ({ onGenreSelect, selectedGenre }: Props) => {
   const { genres, error, isLoaded } = useGenres();
-  {
-    if (error) return null;
 
-    if (!isLoaded) {
-      return (
-        <List>
-          {Array(15)
-            .fill(undefined)
-            .map((_, count) => (
-              <ListItem key={count} paddingY="0.3em">
-                <HStack>
-                  <Skeleton borderRadius={"0.5em"} boxSize={"32px"}></Skeleton>
-                  <SkeletonText width={"100px"} noOfLines={1}></SkeletonText>
-                </HStack>
-              </ListItem>
-            ))}
-        </List>
-      );
-    }
+  if (error) return null;
+
+  if (!isLoaded) {
+    return (
+      <List>
+        {Array(15)
+          .fill(undefined)
+          .map((_, count) => (
+            <ListItem key={count} paddingY="0.3em">
+              <HStack>
+                <Skeleton borderRadius={"0.5em"} boxSize={"32px"}></Skeleton>
+                <SkeletonText width={"100px"} noOfLines={1}></SkeletonText>
+              </HStack>
+            </ListItem>
+          ))}
+      </List>
+    );
   }
 
   return (
