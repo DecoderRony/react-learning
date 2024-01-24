@@ -23,6 +23,8 @@ function App() {
   return (
     <>
       <Grid
+        px={"0.8em"}
+        py={8}
         templateAreas={{
           base: `"nav" "main"`,
           lg: `"nav nav" "aside main"`,
@@ -40,7 +42,7 @@ function App() {
           />
         </GridItem>
         <Show above="lg">
-          <GridItem area={"aside"} paddingX="0.9em">
+          <GridItem area={"aside"} pt={6}>
             <GenreList
               onGenreSelect={(genre) =>
                 setGameQuery({ ...gameQuery, genre: genre })
@@ -49,9 +51,21 @@ function App() {
             ></GenreList>
           </GridItem>
         </Show>
-        <GridItem area={"main"} paddingX={"0.8em"}>
+
+        <GridItem
+          area={"main"}
+          paddingX={"0.8em"}
+          pt={{
+            xs: "2em",
+            sm: "5em",
+            md: "5em",
+            lg: "10em",
+            xl: "10em",
+          }}
+        >
           <GameHeading gameQuery={gameQuery}></GameHeading>
-          <HStack>
+
+          <HStack py={"0.2em"}>
             <PlatformSelector
               selectedPlatform={gameQuery.platform}
               onSelectPlatform={(platform) =>
