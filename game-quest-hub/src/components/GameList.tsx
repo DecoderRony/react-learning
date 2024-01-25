@@ -48,7 +48,11 @@ const GameList = ({ gameQuery }: Props) => {
       spacing={"1.5em"}
     >
       {games.map((game) => (
-        <GameCard key={game.id} game={game} />
+        <GameCard
+          key={game.id}
+          game={game}
+          selectedPlatform={gameQuery.platform}
+        />
       ))}
     </SimpleGrid>
   );

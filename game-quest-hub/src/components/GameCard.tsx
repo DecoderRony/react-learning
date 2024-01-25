@@ -6,7 +6,7 @@ import {
   Image,
   Stack,
 } from "@chakra-ui/react";
-import { GameDetails } from "../hooks/useGames";
+import { GameDetails, Platforms as Platform } from "../hooks/useGames";
 import PlatformIconList from "./PlatformIconList";
 import GameCriticScore from "./GameCriticScore";
 import getCroppedImageUrl from "../services/image-url";
@@ -14,9 +14,14 @@ import GameCardContainer from "./GameCardContainer";
 
 interface Props {
   game: GameDetails;
+  selectedPlatform: Platform | undefined;
 }
 
-const GameCard = ({ game }: Props) => {
+const GameCard = ({ game, selectedPlatform }: Props) => {
+  const platforms: Platform[] = selectedPlatform
+    ? [selectedPlatform]
+    : game.parent_platforms.map((parent_platform) => parent_platform.platform);
+
   return (
     <GameCardContainer>
       <Card>
@@ -37,11 +42,7 @@ const GameCard = ({ game }: Props) => {
             </Heading>
 
             <HStack justifyContent={"space-between"}>
-              <PlatformIconList
-                platforms={game.parent_platforms.map(
-                  (parent_platform) => parent_platform.platform
-                )}
-              ></PlatformIconList>
+              <PlatformIconList platforms={platforms}></PlatformIconList>
 
               <GameCriticScore criticScore={game.metacritic}></GameCriticScore>
             </HStack>
