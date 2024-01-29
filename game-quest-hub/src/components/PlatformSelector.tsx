@@ -12,18 +12,22 @@ import { Platforms } from "../interfaces";
 
 interface Props {
   onSelectPlatform: (platform: Platforms) => void;
-  selectedPlatform: Platforms | undefined;
+  selectedPlatformId: number | undefined;
 }
 
-const PlatformSelector = ({ onSelectPlatform, selectedPlatform }: Props) => {
+const PlatformSelector = ({ onSelectPlatform, selectedPlatformId }: Props) => {
   const { platforms, error, isLoading } = usePlatforms();
+
+  const selectedPlatform = platforms.results.find(
+    (platform) => platform.id === selectedPlatformId
+  );
 
   if (error) return null;
 
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<BiChevronDown />}>
-        {selectedPlatform ? selectedPlatform.name : "Platforms"}
+        {selectedPlatform?.name ?? "Platforms"}
       </MenuButton>
 
       <MenuList>
