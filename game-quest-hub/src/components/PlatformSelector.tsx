@@ -9,6 +9,7 @@ import {
 import { BiChevronDown } from "react-icons/bi";
 import usePlatforms from "../hooks/usePlatforms";
 import { Platforms } from "../interfaces";
+import usePlatform from "../hooks/usePlatform";
 
 interface Props {
   onSelectPlatform: (platform: Platforms) => void;
@@ -18,11 +19,9 @@ interface Props {
 const PlatformSelector = ({ onSelectPlatform, selectedPlatformId }: Props) => {
   const { platforms, error, isLoading } = usePlatforms();
 
-  const selectedPlatform = platforms.results.find(
-    (platform) => platform.id === selectedPlatformId
-  );
-
   if (error) return null;
+
+  const selectedPlatform = usePlatform(selectedPlatformId);
 
   return (
     <Menu>

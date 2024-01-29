@@ -20,7 +20,7 @@ const useGenres = () => {
     queryFn: apiClient.getAll,
     staleTime: 24 * 60 * 60 * 1000, // 24hrs,
     // static data passed to cache as a starter, will be refreshed after every 24hr
-    initialData: { count: Genres.length, results: Genres },
+    initialData: Genres,
   });
 
   return { genres, error, isLoading };
