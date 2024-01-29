@@ -10,7 +10,7 @@ import {
   BsUbuntu,
   BsXbox,
 } from "react-icons/bs";
-import { Platforms } from "../hooks/useGames";
+import { Platforms } from "../interfaces";
 
 interface Props {
   platforms: Platforms[];

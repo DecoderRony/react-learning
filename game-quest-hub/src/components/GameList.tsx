@@ -69,7 +69,7 @@ const GameList = ({ gameQuery }: Props) => {
               <GameCard
                 key={game.id}
                 game={game}
-                selectedPlatform={gameQuery.platformId}
+                selectedPlatformId={gameQuery.platformId}
               />
             ))}
           </React.Fragment>

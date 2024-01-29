@@ -6,20 +6,22 @@ import {
   Image,
   Stack,
 } from "@chakra-ui/react";
-import { GameDetails, Platforms as Platform } from "../hooks/useGames";
+import { GameDetails } from "../hooks/useGames";
+import { Platforms as Platform } from "../interfaces";
 import PlatformIconList from "./PlatformIconList";
 import GameCriticScore from "./GameCriticScore";
 import getCroppedImageUrl from "../services/image-url";
 import GameCardContainer from "./GameCardContainer";
+import usePlatform from "../hooks/usePlatform";
 
 interface Props {
   game: GameDetails;
-  selectedPlatform: Platform | undefined;
+  selectedPlatformId: number | undefined;
 }
 
-const GameCard = ({ game, selectedPlatform }: Props) => {
-  const platforms: Platform[] = selectedPlatform
-    ? [selectedPlatform]
+const GameCard = ({ game, selectedPlatformId }: Props) => {
+  const platforms: Platform[] = selectedPlatformId
+    ? [usePlatform(selectedPlatformId) ?? ({} as Platform)]
     : game.parent_platforms.map((parent_platform) => parent_platform.platform);
 
   return (
