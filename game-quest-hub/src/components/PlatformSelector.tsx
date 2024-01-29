@@ -16,7 +16,7 @@ interface Props {
 }
 
 const PlatformSelector = ({ onSelectPlatform, selectedPlatform }: Props) => {
-  const { platforms, error, isLoaded } = usePlatforms();
+  const { platforms, error, isLoading } = usePlatforms();
 
   if (error) return null;
 
@@ -27,8 +27,8 @@ const PlatformSelector = ({ onSelectPlatform, selectedPlatform }: Props) => {
       </MenuButton>
 
       <MenuList>
-        <Skeleton isLoaded={isLoaded}>
-          {platforms
+        <Skeleton isLoaded={!isLoading}>
+          {platforms?.results
             .filter((platform) => platform.id !== selectedPlatform?.id)
             .map((platform) => (
               <MenuItem
