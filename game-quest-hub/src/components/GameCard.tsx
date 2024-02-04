@@ -7,19 +7,23 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { GameDetails } from "../hooks/useGames";
-import { Platforms as Platform } from "../interfaces";
-import PlatformIconList from "./PlatformIconList";
-import GameCriticScore from "./GameCriticScore";
-import getCroppedImageUrl from "../services/image-url";
-import GameCardContainer from "./GameCardContainer";
 import usePlatform from "../hooks/usePlatform";
+import { Platforms as Platform } from "../interfaces";
+import getCroppedImageUrl from "../services/image-url";
+import useGameQueryStore from "../store";
+import GameCardContainer from "./GameCardContainer";
+import GameCriticScore from "./GameCriticScore";
+import PlatformIconList from "./PlatformIconList";
 
 interface Props {
   game: GameDetails;
-  selectedPlatformId: number | undefined;
 }
 
-const GameCard = ({ game, selectedPlatformId }: Props) => {
+const GameCard = ({ game }: Props) => {
+  const selectedPlatformId = useGameQueryStore(
+    (selector) => selector.gameQuery.platformId
+  );
+
   const platforms: Platform[] = selectedPlatformId
     ? [usePlatform(selectedPlatformId) ?? ({} as Platform)]
     : game.parent_platforms.map((parent_platform) => parent_platform.platform);

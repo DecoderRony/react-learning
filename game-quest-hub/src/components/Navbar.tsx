@@ -2,11 +2,7 @@ import { Box, HStack, Hide, Image, Show } from "@chakra-ui/react";
 import ColorModeSwitch from "./ColorModeSwitch";
 import SearchInput from "./SearchInput";
 
-interface Props {
-  onSearch: (searchText: string) => void;
-}
-
-const Navbar = ({ onSearch }: Props) => {
+const Navbar = () => {
   return (
     <>
       <HStack justifyContent={"space-between"}>
@@ -21,7 +17,7 @@ const Navbar = ({ onSearch }: Props) => {
 
         <Hide below="md">
           <Box style={{ width: "100%" }} mx={5}>
-            <SearchInput onSearch={onSearch} />
+            <SearchInput />
           </Box>
         </Hide>
 
@@ -32,7 +28,7 @@ const Navbar = ({ onSearch }: Props) => {
 
       <Show below="md">
         <Box style={{ width: "100%" }} pt={6}>
-          <SearchInput onSearch={onSearch} />
+          <SearchInput />
         </Box>
       </Show>
     </>

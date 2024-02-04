@@ -7,17 +7,18 @@ import {
   Skeleton,
 } from "@chakra-ui/react";
 import { BiChevronDown } from "react-icons/bi";
-import usePlatforms from "../hooks/usePlatforms";
-import { Platforms } from "../interfaces";
 import usePlatform from "../hooks/usePlatform";
+import usePlatforms from "../hooks/usePlatforms";
+import useGameQueryStore from "../store";
 
-interface Props {
-  onSelectPlatform: (platform: Platforms) => void;
-  selectedPlatformId: number | undefined;
-}
-
-const PlatformSelector = ({ onSelectPlatform, selectedPlatformId }: Props) => {
+const PlatformSelector = () => {
   const { platforms, error, isLoading } = usePlatforms();
+  const selectedPlatformId = useGameQueryStore(
+    (selector) => selector.gameQuery.platformId
+  );
+  const setSelectedPlatform = useGameQueryStore(
+    (selector) => selector.setPlatformId
+  );
 
   if (error) return null;
 
@@ -36,7 +37,7 @@ const PlatformSelector = ({ onSelectPlatform, selectedPlatformId }: Props) => {
             .map((platform) => (
               <MenuItem
                 key={platform.id}
-                onClick={() => onSelectPlatform(platform)}
+                onClick={() => setSelectedPlatform(platform.id)}
               >
                 {platform.name}
               </MenuItem>

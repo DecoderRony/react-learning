@@ -1,18 +1,12 @@
 import { Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { GameQuery } from "../App";
 import useGames from "../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 
-interface Props {
-  gameQuery: GameQuery;
-}
-
-const GameList = ({ gameQuery }: Props) => {
-  const { data, error, isLoading, hasNextPage, fetchNextPage } =
-    useGames(gameQuery);
+const GameList = () => {
+  const { data, error, isLoading, hasNextPage, fetchNextPage } = useGames();
   const GameCardSkeletonCount = [1, 2, 3, 4, 5, 6];
 
   if (error) {
@@ -66,11 +60,7 @@ const GameList = ({ gameQuery }: Props) => {
         {data?.pages.map((page, index) => (
           <React.Fragment key={index}>
             {page.results.map((game) => (
-              <GameCard
-                key={game.id}
-                game={game}
-                selectedPlatformId={gameQuery.platformId}
-              />
+              <GameCard key={game.id} game={game} />
             ))}
           </React.Fragment>
         ))}
