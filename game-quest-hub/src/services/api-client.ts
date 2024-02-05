@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { FetchResponse } from "../interfaces";
+import { FetchResponse, GameDetails } from "../interfaces";
 
 const axiosInstance = axios.create({
   params: {
@@ -18,6 +18,11 @@ class APIClient<T> {
   getAll = (config?: AxiosRequestConfig) =>
     axiosInstance
       .get<FetchResponse<T>>(this.endpoint, config)
+      .then((response) => response.data);
+
+  get = (id: number | string) =>
+    axiosInstance
+      .get<GameDetails>(`${this.endpoint}/${id}`)
       .then((response) => response.data);
 }
 

@@ -6,14 +6,14 @@ import {
   Image,
   Stack,
 } from "@chakra-ui/react";
-import { GameDetails } from "../hooks/useGames";
 import usePlatform from "../hooks/usePlatform";
-import { Platforms as Platform } from "../interfaces";
+import { GameDetails, Platforms as Platform } from "../interfaces";
 import getCroppedImageUrl from "../services/image-url";
 import useGameQueryStore from "../store";
 import GameCardContainer from "./GameCardContainer";
 import GameCriticScore from "./GameCriticScore";
 import PlatformIconList from "./PlatformIconList";
+import { Link } from "react-router-dom";
 
 interface Props {
   game: GameDetails;
@@ -30,31 +30,35 @@ const GameCard = ({ game }: Props) => {
 
   return (
     <GameCardContainer>
-      <Card>
-        <Image
-          src={getCroppedImageUrl(game.background_image)}
-          objectFit={"cover"}
-          objectPosition={"50%"}
-        ></Image>
-        <CardBody>
-          <Stack>
-            <Heading
-              fontSize={{
-                base: "0.7em",
-                lg: "1em",
-              }}
-            >
-              {game.name}
-            </Heading>
+      <Link to={`/games/` + game.slug}>
+        <Card>
+          <Image
+            src={getCroppedImageUrl(game.background_image)}
+            objectFit={"cover"}
+            objectPosition={"50%"}
+          ></Image>
+          <CardBody>
+            <Stack>
+              <Heading
+                fontSize={{
+                  base: "0.7em",
+                  lg: "1em",
+                }}
+              >
+                {game.name}
+              </Heading>
 
-            <HStack justifyContent={"space-between"}>
-              <PlatformIconList platforms={platforms}></PlatformIconList>
+              <HStack justifyContent={"space-between"}>
+                <PlatformIconList platforms={platforms}></PlatformIconList>
 
-              <GameCriticScore criticScore={game.metacritic}></GameCriticScore>
-            </HStack>
-          </Stack>
-        </CardBody>
-      </Card>
+                <GameCriticScore
+                  criticScore={game.metacritic}
+                ></GameCriticScore>
+              </HStack>
+            </Stack>
+          </CardBody>
+        </Card>
+      </Link>
     </GameCardContainer>
   );
 };
