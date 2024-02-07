@@ -18,22 +18,12 @@ const HomePage = () => {
       }}
     >
       <Show above="lg">
-        <GridItem area={"aside"} pt={6}>
+        <GridItem area={"aside"} pt={10}>
           <GenreList />
         </GridItem>
       </Show>
 
-      <GridItem
-        area={"main"}
-        paddingX={"0.8em"}
-        pt={{
-          xs: "2em",
-          sm: "5em",
-          md: "5em",
-          lg: "10em",
-          xl: "10em",
-        }}
-      >
+      <GridItem area={"main"} paddingX={"0.8em"} paddingY={5}>
         <GameHeading />
 
         <Stack py={"0.2em"} direction={{ base: "column", md: "row" }}>
