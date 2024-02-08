@@ -37,7 +37,7 @@ const GameCard = ({ game }: Props) => {
             objectFit={"cover"}
             objectPosition={"50%"}
           ></Image>
-          <CardBody>
+          <CardBody bg="card.bg">
             <Stack>
               <Heading
                 fontSize={{

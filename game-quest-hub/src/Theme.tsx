@@ -1,4 +1,8 @@
-import { extendTheme, type ThemeConfig } from "@chakra-ui/react";
+import {
+  StyleFunctionProps,
+  extendTheme,
+  type ThemeConfig,
+} from "@chakra-ui/react";
 
 // 2. Add your color mode config
 const config: ThemeConfig = {
@@ -33,6 +37,10 @@ const theme = extendTheme({
       700: "#404040",
       800: "#262626",
       900: "#0d0d0d",
+    },
+    card: {
+      bg: (props: StyleFunctionProps) =>
+        props.colorMode === "dark" ? "#404040" : "#202020",
     },
   },
 });

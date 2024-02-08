@@ -1,4 +1,10 @@
-import { Box, Heading, SimpleGrid, Spinner } from "@chakra-ui/react";
+import {
+  AbsoluteCenter,
+  Box,
+  Heading,
+  SimpleGrid,
+  Spinner,
+} from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import ExpandableText from "../components/ExpandableText";
 import GameAttributes from "../components/GameAttributes";
@@ -9,8 +15,16 @@ import GameScreenshots from "../components/GameScreenshots";
 const GameDetailsPage = () => {
   const { slug } = useParams();
   const { data: game, isLoading, error } = useGame(slug!);
+  const height = `calc(90vh - 3em)`;
 
-  if (isLoading) return <Spinner />;
+  if (isLoading)
+    return (
+      <Box p={5} pos={"relative"} height={height}>
+        <AbsoluteCenter>
+          <Spinner size="xl" />
+        </AbsoluteCenter>
+      </Box>
+    );
 
   if (error || !game) throw error;
 
